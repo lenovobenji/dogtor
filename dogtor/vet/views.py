@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView
 
 # Create your views here.
 
@@ -23,8 +23,11 @@ def list_pet_owners(request):
 
 class OwnersList (TemplateView):
       # Renderizane esta clasee
-    
+    model = PetOwner
     template_name = "vet/owners/list.html"
+    context_objects_name ="owners"
+    
+    
       # Que este template va a tener cierto 'contexto'
     
     def get_context_data(self, **kwargs):
