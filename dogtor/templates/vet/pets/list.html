@@ -18,6 +18,9 @@
   </tr>
   {% for pet in pets %}
   <tr>
+    td>
+      <a href="{% url 'vet:pets_detail' pk=pet.id %}">{{ pets.id }}</a>
+    </td>
     <td>{{ pet.id }}</td>
     <td>{{ pet.name }}</td>
     <td>{{ pet.type }}</td>
