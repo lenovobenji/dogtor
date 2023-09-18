@@ -21,9 +21,15 @@ from .views import list_pet_owners, Test, OwnersList, OwnerDetail, PetsList, Pet
 urlpatterns = [
     path("owners/", OwnersList.as_view(), name="owners_list"),
     path("owners/<int:pk>/", OwnerDetail.as_view(), name="owners_detail"),
+    
     path("owners/add/", OwnerCreate.as_view(), name="owners_Create"),
     path("owners/<int:pk>/edit/", OwnerUpdate.as_view(), name="owners_edit"),
+    
     path("pets/", PetsList.as_view(), name="Pets_list"),
-    path("pets/<int:pk>/", PetsDetail.as_view(), name="Pets_datail"), 
+    path("pets/<int:pk>/", PetsDetail.as_view(), name="Pets_datail"),
+    
+    #path("pets/add/", PetsCreate.as_view(), name="Pets_Create"),
+    #path("pets/<int:pk>/", PetsUpdate.as_view(), name="Pets_edit"), 
+    
     path("test/", Test.as_view()),
 ]

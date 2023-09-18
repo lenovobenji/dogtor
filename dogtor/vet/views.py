@@ -1,15 +1,17 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
+from django.contrib.auth.mixins import PermissionRequiredMixin,LoginRequiredMixin
 from django.views.generic import View, TemplateView, ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
 
 # Models
-from vet.models import PetOwner, Pet
-
+from vet.models import PetOwner, Pet, PetDate
 # forms
 from .forms import OwnerForm
+from django.db.models import ProtectedError
+
 
 # Create your views here.
 def list_pet_owners(request):
@@ -90,7 +92,7 @@ class OwnersList(ListView):
     context_object_name = "owners"  # 3
 
 
-class OwnerDetail(DetailView):
+class OwnerDetail(LoginRequiredMixin,DetailView):
     """Render a specific Pet Owner with their pk."""
 
     # 1. Modelo
@@ -136,11 +138,16 @@ class OwnerCreate(CreateView):
     success_url = reverse_lazy("vet:owners_list")
     
     
-class OwnerUpdate(UpdateView):  
+class OwnerUpdate(PermissionRequiredMixin,UpdateView):  
     # modelo
      # template a renderizar
      # 3. el formulario con el qye se va a crear
      # 4 la urls si la requiere fue exitosa ->
+    permission_required = "vet.change_petowner" #app.how is it named on admin in the group section on permission assigned, just the user with this permission can access to this view
+    raise_exception = True  # Raise exception when you do not have permission
+    login_url = "/admin/login"
+    redirect_field_name = "next"
+    
     model =PetOwner
     template_name = "vet/owners/Update.html"
     form_class = OwnerForm
@@ -148,7 +155,12 @@ class OwnerUpdate(UpdateView):
     # Url donde se va a rediricional si fue
     success_url = reverse_lazy("vet:owners_list")  
      
-     
+
+          
+
+
+
+
 
 class Test(View):
     # Como funcion el metodo(GET,PATCH,POST,DELETE,PUT)
