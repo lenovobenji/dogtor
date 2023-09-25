@@ -32,8 +32,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blogadmin/',blog_admin_site.urls ),
     path("vet/",include(("vet.urls","vet"))),
-    path("vetadmin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls"))
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("api/", include(("api.urls", "api"))),
 ]
 admin.site.index_title = "Dogtor"
 admin.site.site_header = "Dogtor Admin"

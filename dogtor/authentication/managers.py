@@ -8,7 +8,7 @@ class ModUserManager (BaseUserManager):
     
     #1. Creater_user
     #benji --->
-    def createreate_user(self, email, user_name, first_name, password, **other_fields):
+    def create_user(self, email, user_name, first_name, password, **other_fields):
         """Overriding creater_user func for ModUserManager."""
         
         # Agregarr Validacion 
